@@ -1,0 +1,56 @@
+{
+    "name": "services-content",
+    "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "apps/services/content/src",
+    "projectType": "application",
+    "tags": [],
+    "targets": {
+        "build": {
+            "executor": "@nx/webpack:webpack",
+            "outputs": ["{options.outputPath}"],
+            "options": {
+                "target": "node",
+                "compiler": "tsc",
+                "outputPath": "dist/apps/services/content",
+                "main": "apps/services/content/src/main.ts",
+                "tsConfig": "apps/services/content/tsconfig.app.json",
+                "webpackConfig": "apps/services/content/webpack.config.js",
+                "assets": [
+                    {
+                        "glob": "*.graphql",
+                        "input": "apps/services/content/src",
+                        "output": "."
+                    }
+                ]
+            },
+            "configurations": {
+                "production": {
+                    "optimization": true,
+                    "extractLicenses": true,
+                    "inspect": false
+                }
+            }
+        },
+        "serve": {
+            "executor": "@nx/js:node",
+            "options": {
+                "buildTarget": "services-content:build"
+            },
+            "configurations": {
+                "production": {
+                    "buildTarget": "services-content:build:production"
+                }
+            }
+        },
+        "lint": {
+            "executor": "@nx/eslint:lint"
+        },
+        "test": {
+            "executor": "@nx/jest:jest",
+            "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+            "options": {
+                "jestConfig": "apps/services/content/jest.config.ts"
+            }
+        }
+    }
+}

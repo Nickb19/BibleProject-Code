@@ -1,0 +1,48 @@
+extend schema
+    @link(
+        url: "https://specs.apollo.dev/federation/v2.3"
+        import: ["@key", "@interfaceObject"]
+    )
+
+type Query {
+    articles: [Article!]!
+    article(id: ID, slug: String): Article
+
+    quizzes: [Quiz!]!
+    quizById(id: ID!): Quiz
+
+    videos: [Video!]!
+    video(id: ID, slug: String): Video
+}
+
+type Article {
+    id: ID!
+    title: String!
+    description: String
+    image: String
+    slug: String
+    quizId: String
+}
+
+type Quiz {
+    id: ID!
+    title: String!
+    description: String
+    questions: [QuizQuestion!]!
+}
+
+type QuizQuestion {
+    id: ID!
+    questionText: String!
+}
+
+type Video {
+    id: ID!
+    title: String!
+    slug: String
+    description: String
+    duration: Int!
+    image: String
+    youtubeId: String
+    quizId: String
+}

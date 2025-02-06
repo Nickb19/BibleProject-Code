@@ -1,0 +1,22 @@
+extend schema
+    @link(
+        url: "https://specs.apollo.dev/federation/v2.3"
+        import: ["@key", "@interfaceObject"]
+    )
+
+type LoginResponse {
+    success: Boolean!
+    accessToken: String
+    user: User
+}
+
+type User {
+    id: ID!
+    username: String!
+    firstName: String!
+    lastName: String!
+}
+
+type Mutation {
+    login(username: String!, password: String!): LoginResponse!
+}
