@@ -10,7 +10,7 @@ type LoginResponse {
     user: User
 }
 
-type User {
+type User @key(fields: "username") {
     id: ID!
     username: String!
     firstName: String!

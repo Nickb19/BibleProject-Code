@@ -1,9 +1,29 @@
 extend schema
     @link(
         url: "https://specs.apollo.dev/federation/v2.3"
-        import: ["@key", "@interfaceObject"]
+        import: ["@key", "@interfaceObject", "@external"]
     )
 
+scalar DateTime
+
+type Query {
+    getActivity(articleId: ID, username: String): Activity
+}
+
 type Mutation {
-    ActivityCompleted(articleId: ID): Boolean
+    ActivityCompleted(articleId: ID, username: String): Boolean
+}
+
+type Activity {
+    user: User
+    article: Article
+    completedOn: DateTime
+}
+
+extend type User @key(fields: "username") {
+    username: String @external
+}
+
+extend type Article @key(fields: "id") {
+    id: ID @external
 }

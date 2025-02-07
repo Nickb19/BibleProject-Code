@@ -1,7 +1,7 @@
-import React from 'react';
-import { useQuery, gql } from '@apollo/client';
-import { GetArticle } from './graphql';
-import { useParams, useLocation } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useQuery } from '@apollo/client';
+import { GetActivity } from './graphql';
+import { useUser } from '../providers/Auth';
 
 import styled from 'styled-components';
 import { CheckCircle } from '@phosphor-icons/react';
@@ -67,26 +67,28 @@ const formatter = new Intl.DateTimeFormat('en-US', {
 
 export const Aside = ({ id, children }) => {
     // TODO: implement activity
-    const params = useParams<{ slug: string }>();
+    const [activity, setActivity] = useState(null);
+    const [show, setShow] = useState(false);
     // Get activity
-    const { data } = useQuery(GetArticle, { variables: { slug: params.slug } });
-    console.log;
-    // TODO: this is mock until we implement Activity service
-    // const data = {
-    //     activity: {
-    //         id: '123',
-    //         createdAt: new Date(),
-    //     },
-    // };
+    const user = useUser();
+    useQuery(GetActivity, {
+        variables: { articleId: id, username: user.username },
+        onCompleted(data) {
+            setActivity(data);
+            console.log(data);
+            if (data?.getActivity) setShow(true);
+        },
+        fetchPolicy: 'cache-and-network',
+    });
 
-    const shouldShowActivity = data?.article.completedOn;
-    console.log('DATA', shouldShowActivity);
+    const activityCompletionDate = activity?.getActivity?.completedOn;
+    console.log(show);
     return (
         <AsideWrapper>
-            {shouldShowActivity && (
+            {show && (
                 <ActivityBar>
                     <CheckCircle weight="bold" color="#0c0c0e" size={24} />
-                    {/* Completed on {formatter.format(data.activity.createdAt)} */}
+                    Completed on {activityCompletionDate}
                 </ActivityBar>
             )}
             {children}

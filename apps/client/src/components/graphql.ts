@@ -1,19 +1,21 @@
 import { gql } from '@apollo/client';
 
 export const ActivityCompleted = gql`
-    mutation ActivityCompleted($articleId: ID) {
-        ActivityCompleted(articleId: $articleId)
+    mutation ActivityCompleted($articleId: ID, $username: String) {
+        ActivityCompleted(articleId: $articleId, username: $username)
     }
 `;
 
-export const GetArticle = gql`
-    query Article($slug: String) {
-        article(slug: $slug) {
-            id
-            title
-            image
-            quizId
+export const GetActivity = gql`
+    query Activity($articleId: ID, $username: String) {
+        getActivity(articleId: $articleId, username: $username) {
             completedOn
+            article {
+                id
+            }
+            user {
+                username
+            }
         }
     }
 `;

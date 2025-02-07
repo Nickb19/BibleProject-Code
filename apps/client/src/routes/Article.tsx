@@ -47,7 +47,6 @@ export const Article = () => {
                     title
                     image
                     quizId
-                    isCompleted
                 }
             }
         `,

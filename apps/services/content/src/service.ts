@@ -6,7 +6,6 @@ interface Article {
     title: string;
     image: string;
     quizId: number;
-    isCompleted: boolean;
     description: string;
     slug: string;
 }

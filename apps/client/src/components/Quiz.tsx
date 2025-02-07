@@ -1,7 +1,7 @@
 import React from 'react';
 import { gql, useQuery, useMutation } from '@apollo/client';
 import styled from 'styled-components';
-import { ActivityCompleted } from './graphql';
+import { ActivityCompleted, GetActivity } from './graphql';
 
 import { QuizItem } from './QuizItem';
 
@@ -43,9 +43,12 @@ export const Quiz = ({ id, articleId }) => {
         }
     );
 
-    const onSelect = (articleId) => {
+    const onSelect = (articleId: string, username: string) => {
         // Use mutation here to show that they completed the article
-        mutateActivity({ variables: { articleId } });
+        mutateActivity({
+            variables: { articleId, username },
+            refetchQueries: [GetActivity],
+        });
         // TODO: wire this up to Activity
     };
 

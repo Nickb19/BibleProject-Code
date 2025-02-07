@@ -1,5 +1,6 @@
 import React, { SyntheticEvent } from 'react';
 import styled from 'styled-components';
+import { useUser } from '../providers/Auth';
 
 const Button = styled.button`
     width: 100%;
@@ -40,14 +41,15 @@ export const QuizItem = ({
     question: string;
     id: string;
     articleId: string;
-    onClick: (id: string) => void;
+    onClick: (articleId: string, username: string) => void;
 }) => {
+    const user = useUser();
     return (
         <Button
             id={id}
             onClick={(e) => {
                 e.preventDefault();
-                return onClick(articleId);
+                return onClick(articleId, user.username);
             }}
         >
             <Letter>{String.fromCharCode(65 + index)}</Letter>

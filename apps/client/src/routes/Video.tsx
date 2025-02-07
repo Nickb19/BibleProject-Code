@@ -55,7 +55,7 @@ export const Video = () => {
                 <Meta>
                     <h1>{data?.video.title}</h1>
                     <p>{data?.video.description}</p>
-                    <Quiz id={data?.video.quizId} />
+                    <Quiz id={data?.video.quizId} articleId={data?.video.id} />
                 </Meta>
                 <Aside id={data?.video.id}>
                     <h2>Table of Contents</h2>

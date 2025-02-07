@@ -1,10 +1,17 @@
 import { pg } from '../../db';
-export async function setIsCompleted(id: string): Promise<void> {
-    console.log('SET COMPLETED IN DATABASE', id);
-
+export async function setIsCompleted(
+    id: string,
+    username: string
+): Promise<void> {
     const activity = pg('Activity');
-    // grab user
-    // add the activity
-    // add that it is completed
-    await activity.update({ completedOn: new Date() }).where('id', id);
+    await activity.insert({ id, username, completedOn: new Date() });
+}
+
+export async function getActivity(id: string, username: string) {
+    const activity = pg('Activity');
+    const newActivity = await activity
+        .where({ username })
+        .andWhere({ id })
+        .select();
+    return newActivity[0];
 }

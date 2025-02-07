@@ -1,6 +1,6 @@
 import { ApolloServer } from '@apollo/server';
 import { buildSubgraphSchema } from '@apollo/subgraph';
-import { setIsCompleted } from './store';
+import { setIsCompleted, getActivity } from './store';
 import { startStandaloneServer } from '@apollo/server/standalone';
 import * as fs from 'fs';
 import gql from 'graphql-tag';
@@ -19,10 +19,20 @@ const typeDefs = gql(
 // Resolvers
 // ---------
 const resolvers = {
-    Mutation: {
-        ActivityCompleted: async (_, { articleId }) => {
+    Query: {
+        getActivity: async (_, { articleId, username }) => {
             try {
-                await setIsCompleted(articleId);
+                const activity = await getActivity(articleId, username);
+                return activity;
+            } catch (error) {
+                throw new GraphQLError(error.message);
+            }
+        },
+    },
+    Mutation: {
+        ActivityCompleted: async (_, { articleId, username }) => {
+            try {
+                await setIsCompleted(articleId, username);
                 return true;
             } catch (error) {
                 throw new GraphQLError(error.message);

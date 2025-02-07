@@ -21,7 +21,6 @@ export const Home = () => {
                 image
                 slug
                 description
-                isCompleted
             }
             videos {
                 id
