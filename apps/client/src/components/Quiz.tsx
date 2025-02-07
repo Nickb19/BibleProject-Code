@@ -42,7 +42,6 @@ export const Quiz = ({ id, articleId }) => {
             },
         }
     );
-
     const onSelect = (articleId: string, username: string) => {
         // Use mutation here to show that they completed the article
         mutateActivity({

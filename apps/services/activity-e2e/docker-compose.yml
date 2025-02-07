@@ -1,13 +1,14 @@
-version: '3.9'
-
 services:
     postgres:
         image: postgres:14-alpine
+        container_name: BibleProjectDatabase
         ports:
             - 5432:5432
         volumes:
-            - ~/apps/postgres:/var/lib/postgresql/data
+            - ~/apps/postgres:/var/lib/postgresql/bpData2
+            - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
         environment:
-            - POSTGRES_PASSWORD=S3cret
+            - POSTGRES_PASSWORD=password
             - POSTGRES_USER=bible_proj
             - POSTGRES_DB=bible_proj_data
+        restart: always

@@ -36,7 +36,6 @@ export const Home = () => {
         }
     `);
 
-    console.log('DATA', data, loading);
     return loading ? (
         <div>Loading...</div>
     ) : (

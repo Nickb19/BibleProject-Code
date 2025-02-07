@@ -1,5 +1,4 @@
 import { pg } from '../../db';
-import { knex } from 'knex';
 
 interface Article {
     id: string;
@@ -10,14 +9,14 @@ interface Article {
     slug: string;
 }
 export async function getArticles(): Promise<Article[]> {
-    const activity = pg('Articles');
+    const activity = pg('articles');
     const allArticles = await activity.select();
     return allArticles;
 }
 
 export async function getArticle(slug: string): Promise<Article> {
-    const activity = pg('Articles');
+    const activity = pg('articles');
     const article = await activity.where({ slug }).select();
 
-    return article[0];
+    return { ...article[0], quizId: article[0].quizid };
 }

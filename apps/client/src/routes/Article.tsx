@@ -56,7 +56,6 @@ export const Article = () => {
             },
         }
     );
-    console.log(data);
 
     return (
         <Wrapper>

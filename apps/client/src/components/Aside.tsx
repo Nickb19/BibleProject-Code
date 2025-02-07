@@ -75,14 +75,12 @@ export const Aside = ({ id, children }) => {
         variables: { articleId: id, username: user.username },
         onCompleted(data) {
             setActivity(data);
-            console.log(data);
             if (data?.getActivity) setShow(true);
         },
         fetchPolicy: 'cache-and-network',
     });
 
     const activityCompletionDate = activity?.getActivity?.completedOn;
-    console.log(show);
     return (
         <AsideWrapper>
             {show && (

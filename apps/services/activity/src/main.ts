@@ -1,6 +1,6 @@
 import { ApolloServer } from '@apollo/server';
 import { buildSubgraphSchema } from '@apollo/subgraph';
-import { setIsCompleted, getActivity } from './store';
+import { setIsCompleted, getActivity } from './service';
 import { startStandaloneServer } from '@apollo/server/standalone';
 import * as fs from 'fs';
 import gql from 'graphql-tag';
