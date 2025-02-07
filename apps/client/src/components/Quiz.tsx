@@ -1,6 +1,7 @@
 import React from 'react';
-import { gql, useQuery } from '@apollo/client';
+import { gql, useQuery, useMutation } from '@apollo/client';
 import styled from 'styled-components';
+import { ActivityCompleted } from './graphql';
 
 import { QuizItem } from './QuizItem';
 
@@ -19,7 +20,9 @@ const QuizContainer = styled.div`
     }
 `;
 
-export const Quiz = ({ id }) => {
+export const Quiz = ({ id, articleId }) => {
+    const [mutateActivity] = useMutation(ActivityCompleted);
+
     const { data } = useQuery(
         gql`
             query Quiz($id: ID!) {
@@ -40,8 +43,9 @@ export const Quiz = ({ id }) => {
         }
     );
 
-    const onSelect = (id) => {
-        console.log(id);
+    const onSelect = (articleId) => {
+        // Use mutation here to show that they completed the article
+        mutateActivity({ variables: { articleId } });
         // TODO: wire this up to Activity
     };
 
@@ -54,6 +58,7 @@ export const Quiz = ({ id }) => {
                         index={idx}
                         question={question.questionText}
                         id={question.id}
+                        articleId={articleId}
                         onClick={onSelect}
                     />
                 ))}

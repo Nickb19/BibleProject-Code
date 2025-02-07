@@ -47,6 +47,7 @@ export const Article = () => {
                     title
                     image
                     quizId
+                    isCompleted
                 }
             }
         `,
@@ -56,6 +57,7 @@ export const Article = () => {
             },
         }
     );
+    console.log(data);
 
     return (
         <Wrapper>
@@ -148,7 +150,10 @@ export const Article = () => {
                         commodo ultricies. Ut porttitor ante et justo
                         sollicitudin malesuada. Nullam libero erat, feugiat.
                     </p>
-                    <Quiz id={data?.article.quizId} />
+                    <Quiz
+                        id={data?.article.quizId}
+                        articleId={data?.article.id}
+                    />
                 </ArticleWrapper>
                 <Aside id={data?.article.id}>
                     <h2>Table of Contents</h2>

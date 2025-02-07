@@ -1,5 +1,9 @@
 federation_version: =2.5.1
 subgraphs:
+    activity:
+        routing_url: http://localhost:6130
+        schema:
+            file: ./apps/services/activity/src/schema.graphql
     auth:
         routing_url: http://localhost:6120
         schema:

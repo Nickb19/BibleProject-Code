@@ -33,18 +33,21 @@ export const QuizItem = ({
     index,
     question,
     id,
+    articleId,
     onClick,
 }: {
     index: number;
     question: string;
     id: string;
+    articleId: string;
     onClick: (id: string) => void;
 }) => {
     return (
         <Button
+            id={id}
             onClick={(e) => {
                 e.preventDefault();
-                return onClick(id);
+                return onClick(articleId);
             }}
         >
             <Letter>{String.fromCharCode(65 + index)}</Letter>

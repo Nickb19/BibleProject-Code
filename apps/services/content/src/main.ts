@@ -5,7 +5,9 @@ import * as fs from 'fs';
 import gql from 'graphql-tag';
 import * as path from 'path';
 
-import { articles } from './data/articles';
+// import { articles } from './data/articles';
+import { getArticles } from './service';
+import { getArticle } from './service';
 import { videos } from './data/videos';
 import { quizzes } from './data/quizzes';
 
@@ -22,12 +24,8 @@ const typeDefs = gql(
 // ---------
 const resolvers = {
     Query: {
-        articles: () => articles,
-        article: (_, { id, slug }) => {
-            return articles.find(
-                (article) => article.id === id || article.slug === slug
-            );
-        },
+        articles: () => getArticles(),
+        article: (_, { slug }) => getArticle(slug),
         quizzes: () => quizzes,
         quizById: (_, { id }) => {
             return quizzes.find((quiz) => quiz.id === id);

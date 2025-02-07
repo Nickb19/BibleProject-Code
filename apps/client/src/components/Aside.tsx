@@ -1,5 +1,8 @@
 import React from 'react';
 import { useQuery, gql } from '@apollo/client';
+import { GetArticle } from './graphql';
+import { useParams, useLocation } from 'react-router-dom';
+
 import styled from 'styled-components';
 import { CheckCircle } from '@phosphor-icons/react';
 
@@ -64,41 +67,26 @@ const formatter = new Intl.DateTimeFormat('en-US', {
 
 export const Aside = ({ id, children }) => {
     // TODO: implement activity
-    // const { data } = useQuery(`
-    //   query Activity($id: ID!) {
-    //      activity(id: $id) {
-    //          id
-    //          updatedAt
-    //          createdAt
-    //          content {
-    //              id
-    //              __typename
-    //              ...on Video {
-    //                  title
-    //              }
-    //              ...on Article {
-    //                  title
-    //              }
-    //          }
-    //      }
-    //   }
-    // `)
+    const params = useParams<{ slug: string }>();
+    // Get activity
+    const { data } = useQuery(GetArticle, { variables: { slug: params.slug } });
+    console.log;
     // TODO: this is mock until we implement Activity service
-    const data = {
-        activity: {
-            id: '123',
-            createdAt: new Date(),
-        },
-    };
+    // const data = {
+    //     activity: {
+    //         id: '123',
+    //         createdAt: new Date(),
+    //     },
+    // };
 
-    const shouldShowActivity = Math.random() > 0.5;
-
+    const shouldShowActivity = data?.article.completedOn;
+    console.log('DATA', shouldShowActivity);
     return (
         <AsideWrapper>
             {shouldShowActivity && (
                 <ActivityBar>
                     <CheckCircle weight="bold" color="#0c0c0e" size={24} />
-                    Completed on {formatter.format(data.activity.createdAt)}
+                    {/* Completed on {formatter.format(data.activity.createdAt)} */}
                 </ActivityBar>
             )}
             {children}
