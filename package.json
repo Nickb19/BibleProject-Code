@@ -5,6 +5,7 @@
         "build": "nx run-many --target=build --all",
         "start": "nx run-many --target=serve --projects=client,services-auth,services-content,service-activity",
         "start:gateway": "nx run gateway:serve",
+        "start:auth": "nx run services-auth:serve",
         "lint": "nx run-many --target=lint --all",
         "test": "nx run-many --target=test --all --output-style=static --detectOpenHandles",
         "test:coverage": "nx run-many --target=test --all --output-style=static  --codeCoverage=true --coverageReporters=text,html"
@@ -58,6 +59,7 @@
         "@apollo/subgraph": "2.0.3",
         "@phosphor-icons/react": "^2.0.14",
         "axios": "1.7.7",
+        "date-fns": "^4.1.0",
         "express": "4.18.1",
         "graphql": "16.6.0",
         "graphql-depth-limit": "1.1.0",
@@ -67,6 +69,7 @@
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-router-dom": "^6.18.0",
+        "reactstrap": "^9.2.3",
         "styled-components": "^6.1.1",
         "tslib": "2.3.0"
     }

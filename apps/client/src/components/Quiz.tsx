@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useUser } from '../providers/Auth';
 import { gql, useQuery, useMutation } from '@apollo/client';
 import styled from 'styled-components';
 import { ActivityCompleted, GetActivity } from './graphql';
-
+import { AllContent } from '../routes/Home';
 import { QuizItem } from './QuizItem';
 
 const QuizContainer = styled.div`
@@ -21,8 +22,25 @@ const QuizContainer = styled.div`
 `;
 
 export const Quiz = ({ id, articleId }) => {
+    // Grabs the completed data and checks to see if this task has been completed or not
+    const { username } = useUser();
+    const { data: completedData } = useQuery(
+        gql`
+            query GetCompleted {
+                getUserActivities(username: $username) {
+                    activities {
+                        id
+                    }
+                }
+            }
+        `,
+        { variables: { username } }
+    );
+    const completedActivities =
+        completedData?.getUserActivities?.activities.map((m) => m.id);
+    const isComplete = !!completedActivities?.find((m) => m === articleId);
     const [mutateActivity] = useMutation(ActivityCompleted);
-
+    const [completed, setCompleted] = useState(isComplete);
     const { data } = useQuery(
         gql`
             query Quiz($id: ID!) {
@@ -43,12 +61,12 @@ export const Quiz = ({ id, articleId }) => {
         }
     );
     const onSelect = (articleId: string, username: string) => {
-        // Use mutation here to show that they completed the article
+        // Use mutation here to show that they completed the task
         mutateActivity({
             variables: { articleId, username },
-            refetchQueries: [GetActivity],
+            refetchQueries: [GetActivity, AllContent],
+            onCompleted: () => setCompleted(true),
         });
-        // TODO: wire this up to Activity
     };
 
     return (
@@ -62,6 +80,7 @@ export const Quiz = ({ id, articleId }) => {
                         id={question.id}
                         articleId={articleId}
                         onClick={onSelect}
+                        completed={completed}
                     />
                 ))}
             </div>

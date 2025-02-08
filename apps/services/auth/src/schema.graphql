@@ -1,7 +1,7 @@
 extend schema
     @link(
         url: "https://specs.apollo.dev/federation/v2.3"
-        import: ["@key", "@interfaceObject"]
+        import: ["@key", "@interfaceObject", "@external"]
     )
 
 type LoginResponse {
@@ -10,13 +10,25 @@ type LoginResponse {
     user: User
 }
 
-type User @key(fields: "username") {
+type User {
     id: ID!
     username: String!
     firstName: String!
     lastName: String!
 }
 
+type Query {
+    getUserActivities(username: String!): UserActivities
+}
+
 type Mutation {
     login(username: String!, password: String!): LoginResponse!
+}
+
+type UserActivities {
+    activities: [Activity]
+}
+
+extend type Activity @key(fields: "id", resolvable: false) {
+    id: ID @external
 }

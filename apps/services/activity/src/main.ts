@@ -47,7 +47,7 @@ const server = new ApolloServer({
 
 (async () => {
     const { url } = await startStandaloneServer(server, {
-        listen: { port: parseInt(process.env.CONTENT_SERVICE_PORT) || 6130 },
+        listen: { port: parseInt(process.env.ACTIVITY_SERVICE_PORT) || 6130 },
     });
 
     console.log('Activity server ready at:', url);

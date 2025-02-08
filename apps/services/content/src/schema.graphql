@@ -15,7 +15,7 @@ type Query {
     video(id: ID, slug: String): Video
 }
 
-type Article @key(fields: "id") {
+type Article {
     id: ID!
     title: String!
     description: String

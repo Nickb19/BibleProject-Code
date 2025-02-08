@@ -14,16 +14,7 @@ type Mutation {
     ActivityCompleted(articleId: ID, username: String): Boolean
 }
 
-type Activity {
-    user: User
-    article: Article
+type Activity @key(fields: "id") {
+    id: ID
     completedOn: DateTime
-}
-
-extend type User @key(fields: "username") {
-    username: String @external
-}
-
-extend type Article @key(fields: "id") {
-    id: ID @external
 }

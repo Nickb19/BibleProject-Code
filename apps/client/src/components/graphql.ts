@@ -10,12 +10,6 @@ export const GetActivity = gql`
     query Activity($articleId: ID, $username: String) {
         getActivity(articleId: $articleId, username: $username) {
             completedOn
-            article {
-                id
-            }
-            user {
-                username
-            }
         }
     }
 `;

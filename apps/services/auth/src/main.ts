@@ -2,6 +2,7 @@ import { ApolloServer } from '@apollo/server';
 import { buildSubgraphSchema } from '@apollo/subgraph';
 import { startStandaloneServer } from '@apollo/server/standalone';
 import { login } from '@kit-platform/user-access';
+import { getUserActivities } from './service';
 import * as fs from 'fs';
 import gql from 'graphql-tag';
 import * as path from 'path';
@@ -18,6 +19,21 @@ const typeDefs = gql(
 // Resolvers
 // ---------
 const resolvers = {
+    UserActivities: {
+        activities: (ids) => {
+            return ids;
+        },
+    },
+    Query: {
+        getUserActivities: async (_, { username }) => {
+            try {
+                const userActivites = await getUserActivities(username);
+                return userActivites;
+            } catch (error) {
+                throw new GraphQLError(error.message);
+            }
+        },
+    },
     Mutation: {
         login: async (_, { username, password }) => {
             try {

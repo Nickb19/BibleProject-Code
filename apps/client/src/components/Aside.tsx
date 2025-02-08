@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { GetActivity } from './graphql';
 import { useUser } from '../providers/Auth';
-
+import { format } from 'date-fns';
 import styled from 'styled-components';
 import { CheckCircle } from '@phosphor-icons/react';
 
@@ -66,10 +66,9 @@ const formatter = new Intl.DateTimeFormat('en-US', {
 });
 
 export const Aside = ({ id, children }) => {
-    // TODO: implement activity
     const [activity, setActivity] = useState(null);
     const [show, setShow] = useState(false);
-    // Get activity
+    // Gets activity from the user
     const user = useUser();
     useQuery(GetActivity, {
         variables: { articleId: id, username: user.username },
@@ -86,7 +85,7 @@ export const Aside = ({ id, children }) => {
             {show && (
                 <ActivityBar>
                     <CheckCircle weight="bold" color="#0c0c0e" size={24} />
-                    Completed on {activityCompletionDate}
+                    Completed on {format(activityCompletionDate, 'MM/dd/yyyy')}
                 </ActivityBar>
             )}
             {children}
