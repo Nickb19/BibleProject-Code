@@ -1,5 +1,5 @@
-Assuming you have docker desktop installed, the docker compose should run
-normally by using the following command:
+Assuming you have docker desktop installed, the docker compose will run normally
+by using the following command:
 
 ```bash
 docker compose up -d

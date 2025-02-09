@@ -8,6 +8,13 @@ to one we actually face at BibleProject, but we've changed some of the details
 to encourage you to feel free to be creative and not be overly constrained by
 the work we've already done.)
 
+## Please Note
+
+Please read the readme in the activity-e2e folder, it will explain that the
+articles are stripped out and in a database, you must have docker installed and
+run the docker-compose to create the articles table with the articles uploaded
+to it
+
 ## Scenario
 
 Suppose you work for an e-learning SaaS company called _Kit_. Kit provides
@@ -116,24 +123,34 @@ should run and you should be prepared to describe how the production environment
 would be architected and deployed. Stellar solutions to this problem may include
 Docker Compose stacks or other locally emulated cloud resources.
 
-Please include along with your solution a brief writeup of design considerations that
-aren't obvious from your code but would impact the production implementation of this system
-in a real-life scenario. This may include but is not limited to - key application modules,
-databases, caching, deployment, monitoring, etc. Bullet points are fine, and diagrams
-are welcome if there's anything you think is better expressed visually.
+Please include along with your solution a brief writeup of design considerations
+that aren't obvious from your code but would impact the production
+implementation of this system in a real-life scenario. This may include but is
+not limited to - key application modules, databases, caching, deployment,
+monitoring, etc. Bullet points are fine, and diagrams are welcome if there's
+anything you think is better expressed visually.
 
-Because this is an open-ended challenge, there are many more things you could do than you'll
-have time for. When considering how to use your time, here are some things to keep in mind:
-- When implementing your solution, prefer depth over breadth. A small number of key queries/mutations implemented more
-  holistically gives us better insight into your abilities than implementing a large number of resolvers that mock everything out.
-- For features you don't have time to implement, feel free to simply write comments for anything you think would
-  give us better insight into your understanding of the problem and potential implemenation - GraphQL schema, notes on the
-  resolver implementation, database schema, etc.
-- Where relevant, show your understanding of key GraphQL concepts (for example, implementing entity federation)
-- Leave some time to consider the big picture for your writeup. While we want to know that you can write code, we also care
-  about your holistic approach to implementing a production system. We'll dig into this more during the interview.
-- If you're stuck on something, don't let it consume too much time. Feel free to leave a note with your solution and
-  during the interview we can discuss what you were hoping to do.
+Because this is an open-ended challenge, there are many more things you could do
+than you'll have time for. When considering how to use your time, here are some
+things to keep in mind:
+
+-   When implementing your solution, prefer depth over breadth. A small number
+    of key queries/mutations implemented more holistically gives us better
+    insight into your abilities than implementing a large number of resolvers
+    that mock everything out.
+-   For features you don't have time to implement, feel free to simply write
+    comments for anything you think would give us better insight into your
+    understanding of the problem and potential implemenation - GraphQL schema,
+    notes on the resolver implementation, database schema, etc.
+-   Where relevant, show your understanding of key GraphQL concepts (for
+    example, implementing entity federation)
+-   Leave some time to consider the big picture for your writeup. While we want
+    to know that you can write code, we also care about your holistic approach
+    to implementing a production system. We'll dig into this more during the
+    interview.
+-   If you're stuck on something, don't let it consume too much time. Feel free
+    to leave a note with your solution and during the interview we can discuss
+    what you were hoping to do.
 
 ## Development Notes
 
@@ -141,15 +158,21 @@ have time for. When considering how to use your time, here are some things to ke
     instead of just `auth` or `services/auth`).
 -   A shortcut for creating a new subgraph service is to use the `@nx/node:app`
     generator to create a new service in `apps` (some default options for this
-    command have already been set for you under "generators" in the nx.json file):
+    command have already been set for you under "generators" in the nx.json
+    file):
 
     ```sh
     npx nx g @nx/node:app --directory apps/services/myservice services-myservice
     ```
-    > **Note**: There is an [outstanding issue](https://github.com/nrwl/nx/issues/19199) that produces an error log on hot reloads when
-    > the webpack build target is run with the option `generatePackageJson: true`, which the generator includes in the generated service's project.json file.
-    > The application still reloads successfully, but if you'd like to remove the error you can simply delete `generatePackageJson: true`
-    > from the webpack build target options as it won't be needed to run your service.
+
+    > **Note**: There is an
+    > [outstanding issue](https://github.com/nrwl/nx/issues/19199) that produces
+    > an error log on hot reloads when the webpack build target is run with the
+    > option `generatePackageJson: true`, which the generator includes in the
+    > generated service's project.json file. The application still reloads
+    > successfully, but if you'd like to remove the error you can simply delete
+    > `generatePackageJson: true` from the webpack build target options as it
+    > won't be needed to run your service.
 
 -   In a similar vein, a new library can be generated using:
 
@@ -157,8 +180,8 @@ have time for. When considering how to use your time, here are some things to ke
     npx nx g @nx/node:lib
     ```
 
--   You may notice that this monorepo is not using the latest version of Nx. Upgrading
-    the dependencies is allowed and even encouraged! Just be prepared to explain
-    the changes.
+-   You may notice that this monorepo is not using the latest version of Nx.
+    Upgrading the dependencies is allowed and even encouraged! Just be prepared
+    to explain the changes.
 -   If you notice caching issues you can run `npx nx reset` to clear the Nx
     cache.
